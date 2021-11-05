@@ -1,4 +1,27 @@
+import axios from "axios";
+import { useEffect } from "react";
+import { useState } from "react";
+import { SalePage } from "../../types/sale";
+import { formatLocalDate } from "../../utils/format";
+import { BASE_URL } from "../../utils/requests";
+
 const DataTable = () => {
+
+    const [page,setPage] = useState<SalePage>({
+        first: true,
+        last: true,
+        number: 0,
+        totalElements: 0,
+        totalPages: 0
+    });
+
+    useEffect(() => {
+        axios.get(`${BASE_URL}/sales?page=1&size=10&sort=date,desc`)
+            .then(response => {
+                console.log(response.data);
+                setPage(response.data);
+            })
+    },[])
 
     const list = [1,2,3,4,5,6,7,8,9,10];
 
@@ -16,14 +39,14 @@ const DataTable = () => {
                 </thead>
                 <tbody>
                     {
-                        list.map(index => {
+                        page.content?.map(item => {
                             return (
-                                <tr key={index}>
-                                    <td>22/04/2021</td>
-                                    <td>Barry Allen</td>
-                                    <td>34</td>
-                                    <td>25</td>
-                                    <td>15017.00</td>
+                                <tr key={item.id}>
+                                    <td>{formatLocalDate(item.date, "dd/MM/yyyy")}</td>
+                                    <td>{item.sellerDTO.name}</td>
+                                    <td>{item.visited}</td>
+                                    <td>{item.deals}</td>
+                                    <td>{item.amount.toFixed(2)}</td>
                                 </tr>
                             );
                         })
