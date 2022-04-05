@@ -5,7 +5,7 @@ de um website que resume quantitativamente e analiticamente as vendas de uma emp
 
 ### Preview
 
-![website-preview](https://github.com/davibss/projeto-sds5/tree/main/preview/sds5.gif)
+![website-preview](https://github.com/davibss/projeto-sds5/blob/main/preview/sds5.gif)
 
 ### Desenvolvimento do projeto
 
